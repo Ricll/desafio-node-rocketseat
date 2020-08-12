@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-
 const { uuid } = require("uuidv4");
 
 const app = express();
@@ -32,8 +31,6 @@ app.post("/repositories", (request, response) => {
 
   repositories.push(repository);
 
-
-
   return response.json(repository)
 
 });
@@ -45,7 +42,6 @@ app.put("/repositories/:id", (request, response) => {
   const { title, url, techs } = request.body;
 
   const repositoryUpdate = repositories.findIndex(item => item.id === id)
-
 
   if (repositoryUpdate < 0) {
     return response.status(400).json({ error: 'Repository not found' })
@@ -59,8 +55,6 @@ app.put("/repositories/:id", (request, response) => {
     url: 'http://github.com/node-js-desafio-2020',
     techs: '[Node.js and more]',
     likes: repo['likes']
-
-
   }
   repositories[repositoryUpdate] = repositoryUpdated;
 
@@ -106,9 +100,8 @@ app.post("/repositories/:id/like", (request, response) => {
     techs: `${repo['techs']}`,
     likes: repo['likes'] += 1
 
-
-
   }
+
   repositories[repositoryUpdate] = repositoryUpdated;
 
   return response.json(repositoryUpdated)
