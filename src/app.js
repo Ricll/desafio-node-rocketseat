@@ -13,7 +13,12 @@ const repositories = [];
 
 app.get("/repositories", (request, response) => {
 
-  response.json(repositories)
+  const { title } = request.query;
+
+  const results = title
+    ? repositories.filter(item => item.title.includes(title)) : repositories;
+
+  return response.json(results);
 
 });
 
@@ -23,9 +28,9 @@ app.post("/repositories", (request, response) => {
 
   const repository = {
     id: uuid(),
-    title: 'Desafio Node.js',
-    url: 'http://github.com/desafio-node-js',
-    techs: '[Node.js, Express, Nodemon]',
+    title: title,
+    url: url,
+    techs: techs,
     likes: 0
   }
 
@@ -51,9 +56,9 @@ app.put("/repositories/:id", (request, response) => {
 
   const repositoryUpdated = {
     id: id,
-    title: 'Node Desafio 2020 ',
-    url: 'http://github.com/node-js-desafio-2020',
-    techs: '[Node.js and more]',
+    title: title,
+    url: url,
+    techs: techs,
     likes: repo['likes']
   }
   repositories[repositoryUpdate] = repositoryUpdated;
